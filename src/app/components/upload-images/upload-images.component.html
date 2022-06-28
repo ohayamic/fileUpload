@@ -1,0 +1,59 @@
+<!--<div class="row">
+  <div class="col-8">
+    <label>
+      <button mat-raised-button class="fileInputBtn" type="button" (click)="fileInput.click()">
+          {{ !previews ? '' : 'Select File' }}
+          <mat-icon [ngClass]=" previews ? 'file-input' : 'display:true'" class="fileInputBtnMatIcon" ></mat-icon>
+      </button>
+      <input hidden type="file" name=file_upload #fileInput accept="image/*" multiple (change)="selectFiles($event)" />
+    </label>
+  </div>
+  <div class="col-4">
+    <button
+      class="btn btn-success"
+      [disabled]="!selectedFiles"
+      (click)="uploadFiles()"
+    >
+      Upload
+    </button>
+  </div>
+</div>
+<div>
+  <img *ngFor='let preview of previews' [src]="preview" class="preview" (click)="openCropperDialog($event)">
+</div>-->
+<input #_fileInput type="file" (change)="openCropperDialog($event)" accept="image/*" hidden>
+
+<button ly-button color="primary" (click)="_fileInput.click()">
+  <ly-icon [lyMf]="1">image</ly-icon>
+  <span>Select File</span>
+</button>
+<div style="display:flex; height: 130px; width: 100%;">
+  <div *ngFor='let preview of previews' style="margin-right: 5px;" >
+    <div>
+      <img *ngIf="preview" [src]="preview" height="125px">
+    </div>
+  </div>
+</div>
+<!-- For the lasso free hand cropping -->
+<div class="col-8">
+  <label>
+    <button mat-raised-button class="fileInputBtn" type="button" (click)="fileInput.click()">
+        {{ 'Select File' }}
+        <mat-icon [ngClass]=" previews ? 'file-input' : 'display:true'" class="fileInputBtnMatIcon" ></mat-icon>
+    </button>
+    <input hidden type="file" name=file_upload #fileInput accept="image/*"  (change)="selectFiles($event)" /> <!--(change)="selectFiles($event)"-->
+  </label>
+</div>
+<div id="div" class="myDiv" *ngIf="imageUrl">
+  <img [src]='imageUrl' style="width: 100%; height: 100%;"  #source (click) = "initLasso()"/>
+</div>
+<div style="text-align: center;">
+  <button (click)="uploadImage()">update</button>
+</div>
+<div style="display:flex; height: 130px; width: 100%;">
+  <div *ngFor='let preview of lassoPreviews' style="margin-right: 5px;" >
+    <div>
+      <img *ngIf="preview" [src]="preview" height="125px">
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div ly-dialog-content [lyPx]="0">
+
+    <div *ngIf="ready" style="display: flex; justify-content: center">
+      <button (click)="cropper.zoomIn()" ly-button appearance="icon"><ly-icon>zoom_in</ly-icon></button>
+      <button (click)="cropper.zoomOut()" ly-button appearance="icon"><ly-icon>zoom_out</ly-icon></button>
+      <button (click)="cropper.rotate(90)" ly-button appearance="icon"><ly-icon>rotate_90_degrees_ccw</ly-icon></button>
+    </div>
+  
+    <ly-img-cropper
+      [config]="myConfig"
+      [(scale)]="scale"
+      (ready)="ready = true"
+      (cleaned)="ready = false"
+      (minScale)="minScale = $event"
+      (cropped)="onCropped($event)"
+      (loaded)="onLoaded($event)"
+      (error)="onError($event)"
+    >
+      <span>Drag and drop image</span>
+    </ly-img-cropper>
+  
+  </div>
+  
+  <div container *ngIf="ready" [lyJustifyContent]="'flex-end'" ly-dialog-actions>
+    <button ly-button color="primary" (click)="dialogRef.close()">CANCEL</button>
+    <button ly-button color="primary" (click)="dialogRef.close(cropper.crop())">DONE</button>
+  </div>
